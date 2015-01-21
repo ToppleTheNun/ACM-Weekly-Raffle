@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Speech.Synthesis;
 
 namespace ACM_Weekly_Raffle
 {
@@ -15,6 +15,7 @@ namespace ACM_Weekly_Raffle
     {
         private Winners winners;
         private SpeechSynthesizer speaker = new SpeechSynthesizer();
+
         public mainForm()
         {
             InitializeComponent();
@@ -26,13 +27,13 @@ namespace ACM_Weekly_Raffle
         private void button1_Click(object sender, EventArgs e)
         {
             string winner = winners.selectWinner();
-            if(winner == null)
+            if (winner == null)
             {
                 MessageBox.Show("No winners remain!  Resetting winner list!");
                 winners.reset();
                 return;
             }
-            string[] nameParts = winner.Split(' ', '-');
+            string[] nameParts = winner.Split(' ', '-', ':');
             this.firstNameLabel.Text = nameParts[0];
             if (nameParts.Length > 2)
             {
